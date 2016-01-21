@@ -3,6 +3,10 @@ language: objective-c
 xcode_project: ios ui testing.xcodeproj
 xcode_scheme: ios ui testing
 xcode_sdk: iphonesimulator9.2
+cache: cocoapods
+
+before_install:
+  - gem install cocoapods -v '0.39.0'
 
 script:
  - xcodebuild -project "ios ui testing.xcodeproj" -scheme "ios ui testing" -sdk iphonesimulator9.2  -destination "platform=iOS Simulator,name=iPhone 6,OS=9.2" test
