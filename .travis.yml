@@ -6,9 +6,10 @@ xcode_sdk: iphonesimulator9.2
 cache: cocoapods
 
 before_install:
+  - gem install xcpretty
   - gem install cocoapods -v '0.39.0'
   - SIMULATOR_ID=$(xcrun instruments -s | grep -o "iPhone 6 (9.2) \[.*\]" | grep -o "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/")
 
 script:
   - open -a "simulator" --args -CurrentDeviceUDID $SIMULATOR_ID
-  - xcodebuild -project "ios ui testing.xcodeproj" -scheme "ios ui testing" -sdk iphonesimulator9.2  -destination "platform=iOS Simulator,name=iPhone 6,OS=9.2" test
+  - xcodebuild -project "ios ui testing.xcodeproj" -scheme "ios ui testing" -sdk iphonesimulator9.2  -destination "platform=iOS Simulator,name=iPhone 6,OS=9.2" test | xcpretty -c && exit ${PIPESTATUS[0]}
